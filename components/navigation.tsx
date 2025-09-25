@@ -63,7 +63,7 @@ export default function Navigation() {
           {/* Logo/Brand */}
           <div className="flex-shrink-0 flex items-center space-x-3">
             <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_h9snnx%281%29%281%29%281%29%281%29%281%29%281%29%281%29%281%29-oUEIW0ltZuMJ7cDqP3BUm5SToZOEzd.webp"
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_h9snnx%281%29%281%29%281%29%281%29%281%29%281%29%281%29%281%29%281%29-Y3pvHIH6ScoRPQ5sfu9H7ZXn3PFhIE.webp"
               alt="MDRRMO Pio Duran Official Logo"
               width={48}
               height={48}

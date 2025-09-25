@@ -84,9 +84,9 @@ const HotlineModal: React.FC<HotlineModalProps> = ({ isOpen, onClose }) => {
     <Dialog.Root open={isOpen} onOpenChange={onClose}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-        <Dialog.Content className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-white p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-2xl mx-4 max-h-[90vh] flex flex-col">
+        <Dialog.Content className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-white p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-2xl mx-4 max-h-[90vh]">
           {/* Modal Header */}
-          <div className="flex items-center justify-between gap-4 mb-2">
+          <div className="flex items-center justify-between gap-4 mb-6">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-[#042189]/10 rounded-full flex items-center justify-center">
                 <Phone className="text-[#042189]" size={24} />
@@ -99,9 +99,8 @@ const HotlineModal: React.FC<HotlineModalProps> = ({ isOpen, onClose }) => {
             </Dialog.Close>
           </div>
 
-          {/* Scrollable Content Area */}
-          <ScrollArea.Root className="flex-1 overflow-hidden rounded-lg border border-slate-200">
-            <ScrollArea.Viewport className="h-full w-full p-4">
+          <ScrollArea.Root className="flex-1 overflow-hidden">
+            <ScrollArea.Viewport className="h-full w-full rounded">
               {/* Hotline List */}
               {loading ? (
                 <div className="text-center py-8">
@@ -109,38 +108,36 @@ const HotlineModal: React.FC<HotlineModalProps> = ({ isOpen, onClose }) => {
                   <p className="text-slate-600">Loading emergency hotlines...</p>
                 </div>
               ) : (
-                <div className="space-y-4">
+                <div className="space-y-3 text-slate-800 text-sm pr-4">
                   {hotlines.map((hotline, index) => (
                     <div
                       key={index}
-                      className={`flex items-start gap-3 ${hotline.color} rounded-lg p-4 hover:shadow-md transition duration-300 border border-slate-200/50`}
+                      className={`flex items-start gap-3 ${hotline.color} rounded-lg p-3 hover:shadow-md transition duration-300 border border-slate-200/50`}
                     >
                       {hotline.logo ? (
                         <img
                           src={hotline.logo || "/placeholder.svg"}
                           alt={hotline.name}
-                          className="w-8 h-8 mt-1 rounded"
+                          className="w-6 h-6 mt-1 rounded"
                         />
                       ) : (
-                        <div className={`w-8 h-8 ${hotline.color} rounded-full flex items-center justify-center`}>
-                          <hotline.icon className={`${hotline.iconColor} w-5 h-5`} />
-                        </div>
+                        <hotline.icon className={`${hotline.iconColor} w-6 h-6 mt-1`} />
                       )}
                       <div className="flex-1">
-                        <p className="font-semibold text-slate-900 text-lg">{hotline.name}</p>
-                        {hotline.department && <p className="text-xs text-slate-500 mt-1">{hotline.department}</p>}
-                        <div className="flex flex-wrap gap-2 mt-2">
+                        <p className="font-semibold text-slate-900">{hotline.name}:</p>
+                        {hotline.department && <p className="text-xs text-slate-500">{hotline.department}</p>}
+                        <div className="flex flex-wrap gap-2 mt-1">
                           {hotline.number.split(" / ").map((num: string, numIndex: number) => (
                             <a
                               key={numIndex}
                               href={`tel:${num.replace(/[^\d]/g, "")}`}
-                              className="inline-block bg-[#042189] text-white px-3 py-1 rounded-full text-sm font-medium hover:bg-[#fccf03] hover:text-[#042189] transition-colors focus:outline-none focus:ring-2 focus:ring-[#042189] focus:ring-offset-2"
+                              className="text-[#fccf03] hover:text-[#042189] hover:underline font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[#042189] focus:ring-offset-2 rounded px-1"
                             >
                               {num}
                             </a>
                           ))}
                         </div>
-                        {hotline.description && <p className="text-sm text-slate-600 mt-2">{hotline.description}</p>}
+                        {hotline.description && <p className="text-xs text-slate-600 mt-1">{hotline.description}</p>}
                       </div>
                     </div>
                   ))}
@@ -153,16 +150,25 @@ const HotlineModal: React.FC<HotlineModalProps> = ({ isOpen, onClose }) => {
             >
               <ScrollArea.Thumb className="flex-1 bg-slate-300 rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]" />
             </ScrollArea.Scrollbar>
-            <ScrollArea.Corner className="bg-slate-300" />
           </ScrollArea.Root>
 
           {/* Footer Note */}
-          <div className="mt-4 p-4 bg-[#fccf03]/10 rounded-lg border-l-4 border-[#fccf03]">
+          <div className="mt-6 p-4 bg-[#fccf03]/10 rounded-lg border-l-4 border-[#fccf03]">
             <p className="text-sm text-slate-700">
               <strong>Note:</strong> For life-threatening emergencies, call{" "}
               <strong className="text-red-600">911</strong> immediately. Keep these numbers handy for quick access
               during emergencies.
             </p>
+          </div>
+          
+          {/* Close Button */}
+          <div className="flex justify-end mt-4">
+            <button
+              onClick={onClose}
+              className="px-4 py-2 bg-[#042189] text-white rounded-lg hover:bg-[#fccf03] hover:text-[#042189] transition-colors focus:outline-none focus:ring-2 focus:ring-[#042189] focus:ring-offset-2"
+            >
+              Close
+            </button>
           </div>
         </Dialog.Content>
       </Dialog.Portal>
