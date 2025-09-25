@@ -80,7 +80,7 @@ export default function DRRMCCouncilPage() {
               <div className="bg-gradient-to-br from-blue-950 to-blue-800 text-white rounded-xl p-6 text-center min-w-[300px] shadow-xl card-hover">
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-950 to-yellow-500 flex items-center justify-center mx-auto mb-4 overflow-hidden">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29%281%29%281%29%281%29-5lxdCd3VnR6L7EBWYs6aYgb3Ak0vYq.webp"
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29%281%29%281%29%281%29-sw7ScUmujG6wGayahImsdCeewVVLIN.webp"
                     alt="Chairperson"
                     width={80}
                     height={80}
@@ -95,7 +95,7 @@ export default function DRRMCCouncilPage() {
               <div className="bg-gradient-to-br from-blue-950 to-blue-800 text-white rounded-xl p-6 text-center min-w-[300px] shadow-xl card-hover">
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-950 to-yellow-500 flex items-center justify-center mx-auto mb-4 overflow-hidden">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29%281%29%281%29%281%29-5lxdCd3VnR6L7EBWYs6aYgb3Ak0vYq.webp"
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29%281%29%281%29%281%29-sw7ScUmujG6wGayahImsdCeewVVLIN.webp"
                     alt="Co-Chairperson"
                     width={80}
                     height={80}
@@ -113,7 +113,7 @@ export default function DRRMCCouncilPage() {
               <div className="bg-gradient-to-br from-yellow-500 to-yellow-400 text-blue-950 rounded-xl p-6 text-center min-w-[220px] shadow-xl card-hover">
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-950 to-yellow-500 flex items-center justify-center mx-auto mb-4 overflow-hidden">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29%281%29%281%29%281%29-5lxdCd3VnR6L7EBWYs6aYgb3Ak0vYq.webp"
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29%281%29%281%29%281%29-sw7ScUmujG6wGayahImsdCeewVVLIN.webp"
                     alt="Vice Chairperson"
                     width={80}
                     height={80}
@@ -128,7 +128,7 @@ export default function DRRMCCouncilPage() {
               <div className="bg-gradient-to-br from-yellow-500 to-yellow-400 text-blue-950 rounded-xl p-6 text-center min-w-[220px] shadow-xl card-hover">
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-950 to-yellow-500 flex items-center justify-center mx-auto mb-4 overflow-hidden">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29%281%29%281%29%281%29-5lxdCd3VnR6L7EBWYs6aYgb3Ak0vYq.webp"
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29%281%29%281%29%281%29-sw7ScUmujG6wGayahImsdCeewVVLIN.webp"
                     alt="Vice Chairperson"
                     width={80}
                     height={80}
@@ -143,7 +143,7 @@ export default function DRRMCCouncilPage() {
               <div className="bg-gradient-to-br from-yellow-500 to-yellow-400 text-blue-950 rounded-xl p-6 text-center min-w-[220px] shadow-xl card-hover">
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-950 to-yellow-500 flex items-center justify-center mx-auto mb-4 overflow-hidden">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29%281%29%281%29%281%29-5lxdCd3VnR6L7EBWYs6aYgb3Ak0vYq.webp"
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29%281%29%281%29%281%29-sw7ScUmujG6wGayahImsdCeewVVLIN.webp"
                     alt="Vice Chairperson"
                     width={80}
                     height={80}
@@ -158,7 +158,7 @@ export default function DRRMCCouncilPage() {
               <div className="bg-gradient-to-br from-yellow-500 to-yellow-400 text-blue-950 rounded-xl p-6 text-center min-w-[220px] shadow-xl card-hover">
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-950 to-yellow-500 flex items-center justify-center mx-auto mb-4 overflow-hidden">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29%281%29%281%29%281%29-5lxdCd3VnR6L7EBWYs6aYgb3Ak0vYq.webp"
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29%281%29%281%29%281%29-sw7ScUmujG6wGayahImsdCeewVVLIN.webp"
                     alt="Vice Chairperson"
                     width={80}
                     height={80}
@@ -208,7 +208,7 @@ export default function DRRMCCouncilPage() {
                 >
                   <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-950 to-yellow-500 flex items-center justify-center mx-auto mb-4 overflow-hidden">
                     <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29%281%29%281%29%281%29-5lxdCd3VnR6L7EBWYs6aYgb3Ak0vYq.webp"
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29%281%29%281%29%281%29-sw7ScUmujG6wGayahImsdCeewVVLIN.webp"
                       alt="Cluster Lead"
                       width={80}
                       height={80}
