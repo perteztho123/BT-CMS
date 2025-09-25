@@ -12,12 +12,11 @@ import {
 } from "@lexical/react/LexicalComposer"
 import { HeadingNode, QuoteNode } from "@lexical/rich-text"
 import { ListItemNode, ListNode } from "@lexical/list"
-import { LinkNode, AutoLinkNode } from "@lexical/link"
+import { LinkNode, AutoLinkNode, $createLinkNode } from "@lexical/link"
 import { CodeHighlightNode, CodeNode } from "@lexical/code"
 import { TableCellNode, TableNode, TableRowNode } from "@lexical/table"
 import { $generateHtmlFromNodes } from "@lexical/html"
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary"
-import { $createParagraphNode } from "lexical"
 import {
   FORMAT_TEXT_COMMAND,
   INDENT_CONTENT_COMMAND,
@@ -27,14 +26,12 @@ import {
   REMOVE_LIST_COMMAND,
   $getSelection,
   $isRangeSelection,
-  $createLinkNode,
-  $isListNode,
-  $getNearestNodeOfType,
-  $isHeadingNode,
+  $createParagraphNode,
 } from "lexical"
 import { INSERT_TABLE_COMMAND } from "@lexical/table"
 import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text"
 import { $setBlocksType } from "@lexical/selection"
+import { $isListNode } from "@lexical/list"
 
 // Theme for the editor
 const theme = {
@@ -162,12 +159,15 @@ function ToolbarPlugin() {
 
       if (elementDOM !== null) {
         if ($isListNode(element)) {
-          const parentList = $getNearestNodeOfType(element, ListNode)
-          const type = parentList ? parentList.getTag() : element.getTag()
+          const type = element.getTag()
           setBlockType(type)
         } else {
-          const type = $isHeadingNode(element) ? element.getTag() : element.getType()
-          setBlockType(type)
+          const type = element.getType()
+          if (type.startsWith("heading")) {
+            setBlockType(element.getTag())
+          } else {
+            setBlockType(type)
+          }
         }
       }
     }
@@ -237,16 +237,11 @@ function ToolbarPlugin() {
   const insertLink = () => {
     const url = prompt("Enter URL:", "https://")
     if (url) {
-      editor.dispatchCommand(FORMAT_TEXT_COMMAND, "link")
       editor.update(() => {
         const selection = $getSelection()
         if ($isRangeSelection(selection)) {
-          const nodes = selection.extract()
-          if (nodes.length > 0) {
-            const linkNode = $createLinkNode(url)
-            nodes[0].insertAfter(linkNode)
-            linkNode.append(...nodes)
-          }
+          const linkNode = $createLinkNode(url)
+          selection.insertNodes([linkNode])
         }
       })
     }
