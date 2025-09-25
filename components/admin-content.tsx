@@ -1,3 +1,5 @@
+import * as Table from "@radix-ui/react-table"
+
 export default function AdminContent() {
   return (
     <main className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-blue-800 scrollbar-track-blue-900 p-3 sm:p-4 lg:p-6">
@@ -129,29 +131,37 @@ export default function AdminContent() {
           </div>
           <div className="overflow-x-auto -mx-4 sm:mx-0">
             <div className="min-w-full inline-block align-middle">
-              <table className="w-full table-auto">
-                <thead>
-                  <tr className="bg-gray-50 text-left text-sm font-semibold text-gray-600">
-                    <th className="px-4 py-3 whitespace-nowrap">Service</th>
-                    <th className="px-4 py-3 whitespace-nowrap">Number</th>
-                    <th className="px-4 py-3 whitespace-nowrap">Status</th>
-                    <th className="px-4 py-3 whitespace-nowrap">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  <tr>
-                    <td className="px-4 py-3">
+              <Table.Root className="w-full">
+                <Table.Header>
+                  <Table.Row className="bg-gray-50 border-b border-gray-200">
+                    <Table.ColumnHeaderCell className="px-4 py-3 text-left text-sm font-semibold text-gray-600 whitespace-nowrap">
+                      Service
+                    </Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell className="px-4 py-3 text-left text-sm font-semibold text-gray-600 whitespace-nowrap">
+                      Number
+                    </Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell className="px-4 py-3 text-left text-sm font-semibold text-gray-600 whitespace-nowrap">
+                      Status
+                    </Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell className="px-4 py-3 text-left text-sm font-semibold text-gray-600 whitespace-nowrap">
+                      Actions
+                    </Table.ColumnHeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  <Table.Row className="border-b border-gray-200 hover:bg-gray-50/50 transition-colors">
+                    <Table.Cell className="px-4 py-3">
                       <div className="font-medium text-blue-950 whitespace-nowrap">MDRRMO Emergency</div>
-                    </td>
-                    <td className="px-4 py-3">
+                    </Table.Cell>
+                    <Table.Cell className="px-4 py-3">
                       <div className="text-gray-600 whitespace-nowrap">911 / (052) 234-5678</div>
-                    </td>
-                    <td className="px-4 py-3">
+                    </Table.Cell>
+                    <Table.Cell className="px-4 py-3">
                       <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap">
                         Active
                       </span>
-                    </td>
-                    <td className="px-4 py-3">
+                    </Table.Cell>
+                    <Table.Cell className="px-4 py-3">
                       <div className="flex space-x-2">
                         <button className="text-blue-950 hover:text-blue-700 p-1 hover:bg-blue-50 rounded focus:outline-none focus:ring-2 focus:ring-blue-950/20">
                           <i className="fas fa-edit"></i>
@@ -160,21 +170,21 @@ export default function AdminContent() {
                           <i className="fas fa-trash"></i>
                         </button>
                       </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3">
+                    </Table.Cell>
+                  </Table.Row>
+                  <Table.Row className="border-b border-gray-200 hover:bg-gray-50/50 transition-colors">
+                    <Table.Cell className="px-4 py-3">
                       <div className="font-medium text-blue-950 whitespace-nowrap">Police</div>
-                    </td>
-                    <td className="px-4 py-3">
+                    </Table.Cell>
+                    <Table.Cell className="px-4 py-3">
                       <div className="text-gray-600 whitespace-nowrap">117 / (052) 456-7890</div>
-                    </td>
-                    <td className="px-4 py-3">
+                    </Table.Cell>
+                    <Table.Cell className="px-4 py-3">
                       <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap">
                         Active
                       </span>
-                    </td>
-                    <td className="px-4 py-3">
+                    </Table.Cell>
+                    <Table.Cell className="px-4 py-3">
                       <div className="flex space-x-2">
                         <button className="text-blue-950 hover:text-blue-700 p-1 hover:bg-blue-50 rounded focus:outline-none focus:ring-2 focus:ring-blue-950/20">
                           <i className="fas fa-edit"></i>
@@ -183,10 +193,10 @@ export default function AdminContent() {
                           <i className="fas fa-trash"></i>
                         </button>
                       </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                    </Table.Cell>
+                  </Table.Row>
+                </Table.Body>
+              </Table.Root>
             </div>
           </div>
         </div>
@@ -201,19 +211,29 @@ export default function AdminContent() {
           </div>
           <div className="overflow-x-auto -mx-4 sm:mx-0">
             <div className="min-w-full inline-block align-middle">
-              <table className="w-full table-auto">
-                <thead>
-                  <tr className="bg-gray-50 text-left text-sm font-semibold text-gray-600">
-                    <th className="px-4 py-3 whitespace-nowrap">User</th>
-                    <th className="px-4 py-3 whitespace-nowrap">Role</th>
-                    <th className="px-4 py-3 whitespace-nowrap">Email</th>
-                    <th className="px-4 py-3 whitespace-nowrap">Status</th>
-                    <th className="px-4 py-3 whitespace-nowrap">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  <tr>
-                    <td className="px-4 py-3">
+              <Table.Root className="w-full">
+                <Table.Header>
+                  <Table.Row className="bg-gray-50 border-b border-gray-200">
+                    <Table.ColumnHeaderCell className="px-4 py-3 text-left text-sm font-semibold text-gray-600 whitespace-nowrap">
+                      User
+                    </Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell className="px-4 py-3 text-left text-sm font-semibold text-gray-600 whitespace-nowrap">
+                      Role
+                    </Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell className="px-4 py-3 text-left text-sm font-semibold text-gray-600 whitespace-nowrap">
+                      Email
+                    </Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell className="px-4 py-3 text-left text-sm font-semibold text-gray-600 whitespace-nowrap">
+                      Status
+                    </Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell className="px-4 py-3 text-left text-sm font-semibold text-gray-600 whitespace-nowrap">
+                      Actions
+                    </Table.ColumnHeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  <Table.Row className="border-b border-gray-200 hover:bg-gray-50/50 transition-colors">
+                    <Table.Cell className="px-4 py-3">
                       <div className="flex items-center">
                         <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
                           <span className="text-blue-950 font-bold text-xs">A</span>
@@ -223,21 +243,21 @@ export default function AdminContent() {
                           <div className="text-xs text-gray-500 whitespace-nowrap">Administrator</div>
                         </div>
                       </div>
-                    </td>
-                    <td className="px-4 py-3">
+                    </Table.Cell>
+                    <Table.Cell className="px-4 py-3">
                       <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs whitespace-nowrap">
                         Administrator
                       </span>
-                    </td>
-                    <td className="px-4 py-3">
+                    </Table.Cell>
+                    <Table.Cell className="px-4 py-3">
                       <div className="text-gray-600 whitespace-nowrap">admin@pioduran.gov.ph</div>
-                    </td>
-                    <td className="px-4 py-3">
+                    </Table.Cell>
+                    <Table.Cell className="px-4 py-3">
                       <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap">
                         Active
                       </span>
-                    </td>
-                    <td className="px-4 py-3">
+                    </Table.Cell>
+                    <Table.Cell className="px-4 py-3">
                       <div className="flex space-x-2">
                         <button className="text-blue-950 hover:text-blue-700 p-1 hover:bg-blue-50 rounded focus:outline-none focus:ring-2 focus:ring-blue-950/20">
                           <i className="fas fa-edit"></i>
@@ -246,10 +266,10 @@ export default function AdminContent() {
                           <i className="fas fa-trash"></i>
                         </button>
                       </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                    </Table.Cell>
+                  </Table.Row>
+                </Table.Body>
+              </Table.Root>
             </div>
           </div>
         </div>
