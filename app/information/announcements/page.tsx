@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import Navigation from "@/components/navigation"
 
 export default function AnnouncementsPage() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -9,8 +8,6 @@ export default function AnnouncementsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navigation />
-
       {/* Header Section */}
       <header className="bg-blue-950 text-white py-16 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -101,7 +98,7 @@ export default function AnnouncementsPage() {
                     placeholder="Search announcements..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
+                    className="pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full sm:w-auto"
                   />
                   <i className="fas fa-search absolute left-3 top-4 text-gray-400"></i>
                 </div>

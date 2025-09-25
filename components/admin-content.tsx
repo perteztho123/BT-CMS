@@ -1,6 +1,6 @@
 export default function AdminContent() {
   return (
-    <main className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6">
+    <main className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-blue-800 scrollbar-track-blue-900 p-3 sm:p-4 lg:p-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
         <div className="bg-gradient-to-r from-blue-950 to-blue-800 rounded-xl p-4 sm:p-6 text-white card-hover">
           <div className="flex justify-between items-center">

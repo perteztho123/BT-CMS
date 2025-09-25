@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import Navigation from "@/components/navigation"
+import BackToTop from "@/components/back-to-top"
 
 export default function NewsPage() {
   const [activeFilter, setActiveFilter] = useState("All")
@@ -11,8 +11,6 @@ export default function NewsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navigation />
-
       <div className="bg-blue-950 text-white py-8 text-center">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl font-bold mb-4">News & Advisories</h1>
@@ -351,6 +349,8 @@ export default function NewsPage() {
           </div>
         </div>
       </div>
+
+      <BackToTop />
     </div>
   )
 }

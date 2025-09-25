@@ -1,11 +1,9 @@
 "use client"
 
-import Navigation from "@/components/navigation"
-
 export default function WeatherUpdatesPage() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navigation />
+      {/* <Navigation /> */}
 
       {/* Header Section */}
       <header className="bg-blue-950 text-white py-12 relative overflow-hidden">

@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import Navigation from "@/components/navigation"
 
 export default function FAQPage() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -179,8 +178,6 @@ export default function FAQPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navigation />
-
       {/* Header Section */}
       <header className="bg-blue-950 text-white py-16 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
