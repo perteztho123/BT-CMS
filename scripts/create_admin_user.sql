@@ -10,7 +10,7 @@ VALUES (
   '00000000-0000-0000-0000-000000000000',
   'MDRRMO Administrator',
   'admin@mdrrmo.gov.ph',
-  '+63-XXX-XXX-XXXX',
+  '+63-968-599-6024',
   NOW(),
   NOW()
 ) ON CONFLICT (id) DO UPDATE SET
