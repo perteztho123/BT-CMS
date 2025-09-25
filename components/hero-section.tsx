@@ -404,7 +404,7 @@ export default function HeroSection() {
           {/* Hotline List */}
           <div className="space-y-4 text-gray-800 text-sm">
             <div className="flex items-start gap-3 bg-blue-50 rounded-lg p-3 hover:shadow-md transition duration-300">
-              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/administrator-male%281%29-JhAC5HExm2zyxdQ1lj6rXBikW2cVyB.png" alt="dail..." className="w-6 h-6 mt-1" />
+              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/administrator-male-4y4IrRHAISkHMb0HhkxJGto1boPRXM.png" alt="dail..." className="w-6 h-6 mt-1" />
               <p><strong>Office of the Mayor:</strong> <a href="tel:0521234567" className="text-yellow-500 hover:underline">(052) 123-4567</a></p>
             </div>
             <div className="flex items-start gap-3 bg-red-50 rounded-lg p-3 hover:shadow-md transition duration-300">
@@ -412,19 +412,19 @@ export default function HeroSection() {
               <p><strong>MDRRMO:</strong> <a href="tel:911" className="text-yellow-500 hover:underline">911</a> / <a href="tel:0522345678" className="text-yellow-500 hover:underline">(052) 234-5678</a></p>
             </div>
             <div className="flex items-start gap-3 bg-purple-50 rounded-lg p-3 hover:shadow-md transition duration-300">
-              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/family%281%29-T8i0OMcfdnRPM0nDZFmBf6dw9Zn6VQ.png" alt="dail..." className="w-6 h-6 mt-1" />
+              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/family-4vO7Msl7n6kgAug2ikT4az4IJsgom6.png" alt="dail..." className="w-6 h-6 mt-1" />
               <p><strong>MSWD:</strong> <a href="tel:1343" className="text-yellow-500 hover:underline">1343</a></p>
             </div>
             <div className="flex items-start gap-3 bg-blue-50 rounded-lg p-3 hover:shadow-md transition duration-300">
-              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/medical-doctor%281%29-R5EvBAKDzfdg1CyrLay30zo5ygbUHI.png" alt="dail..." className="w-6 h-6 mt-1" />
+              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/medical-doctor-9dDIboJmoZKkvlnBcL4T1Waj2pi73x.png" alt="dail..." className="w-6 h-6 mt-1" />
               <p><strong>Medical/MHO:</strong> <a href="tel:0523456789" className="text-yellow-500 hover:underline">(052) 345-6789</a></p>
             </div>
             <div className="flex items-start gap-3 bg-blue-50 rounded-lg p-3 hover:shadow-md transition duration-300">
-              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/policeman-male%281%29-bW6qglV3YXTjVt7VCPEnISd4b8WlAF.png" alt="dail..." className="w-6 h-6 mt-1" />
+              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/policeman-male-V9LNejzpd0i2dI6hSKTSEX6Uodk7OF.png" alt="dail..." className="w-6 h-6 mt-1" />
               <p><strong>PNP:</strong> <a href="tel:117" className="text-yellow-500 hover:underline">117</a> / <a href="tel:0524567890" className="text-yellow-500 hover:underline">(052) 456-7890</a></p>
             </div>
             <div className="flex items-start gap-3 bg-orange-50 rounded-lg p-3 hover:shadow-md transition duration-300">
-              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/fire-element%281%29-Mc8CKdIqMgkmi8PV9l4jIkbWhPRc6W.png" alt="dail..." className="w-6 h-6 mt-1" />
+              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/fire-element-uLP5BPgi94DHypS2CkKpN3A3fRqJZG.png" alt="dail..." className="w-6 h-6 mt-1" />
               <p><strong>BFP:</strong> <a href="tel:0525678901" className="text-yellow-500 hover:underline">(052) 567-8901</a></p>
             </div>
             <div className="flex items-start gap-3 bg-blue-50 rounded-lg p-3 hover:shadow-md transition duration-300">
