@@ -12,11 +12,9 @@ import {
 } from "@lexical/react/LexicalComposer"
 import { HeadingNode, QuoteNode } from "@lexical/rich-text"
 import { ListItemNode, ListNode } from "@lexical/list"
-import { LinkNode } from "@lexical/link"
+import { LinkNode, AutoLinkNode } from "@lexical/link"
 import { CodeHighlightNode, CodeNode } from "@lexical/code"
-import { AutoLinkNode } from "@lexical/link"
 import { TableCellNode, TableNode, TableRowNode } from "@lexical/table"
-import { HorizontalRuleNode } from "@lexical/horizontal-rule"
 import { $generateHtmlFromNodes } from "@lexical/html"
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary"
 import { $createParagraphNode } from "lexical"
@@ -120,7 +118,6 @@ const nodes = [
   TableRowNode,
   AutoLinkNode,
   LinkNode,
-  HorizontalRuleNode,
 ]
 
 // Toolbar Button Component

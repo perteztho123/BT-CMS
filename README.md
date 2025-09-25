@@ -38,11 +38,11 @@ Before running this application, ensure you have:
 
 ### 1. Clone and Install Dependencies
 
-```bash
+\`\`\`bash
 git clone <repository-url>
 cd admin-cms
 npm install
-```
+\`\`\`
 
 ### 2. Setup XAMPP Database
 
@@ -55,7 +55,7 @@ npm install
 
 The `.env` file is already configured for XAMPP defaults:
 
-```env
+\`\`\`env
 # Database Configuration (XAMPP Defaults)
 DB_HOST=localhost
 DB_PORT=3306
@@ -69,11 +69,11 @@ JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
 # Server Configuration
 PORT=3001
 NODE_ENV=development
-```
+\`\`\`
 
 ### 4. Start the Application
 
-```bash
+\`\`\`bash
 # Start both frontend and backend
 npm run dev:full
 
@@ -83,7 +83,7 @@ npm run server
 
 # Terminal 2 - Frontend
 npm run dev
-```
+\`\`\`
 
 ### 5. Access the Application
 
@@ -93,14 +93,14 @@ npm run dev
 
 ### 6. Default Login Credentials
 
-```
+\`\`\`
 Email: admin@cms.com
 Password: admin123
-```
+\`\`\`
 
 ## 📁 Project Structure
 
-```
+\`\`\`
 admin-cms/
 ├── src/                          # Frontend React application
 │   ├── components/              # React components
@@ -121,7 +121,7 @@ admin-cms/
 │   └── server.js               # Main server file
 ├── .env                        # Environment variables
 └── package.json                # Dependencies and scripts
-```
+\`\`\`
 
 ## 🗄️ Database Schema
 
@@ -181,25 +181,25 @@ The plugin system allows for easy extension:
 
 ### Production Build
 
-```bash
+\`\`\`bash
 # Build frontend
 npm run build
 
 # Start production server
 NODE_ENV=production npm run server
-```
+\`\`\`
 
 ### Environment Variables for Production
 
 Update `.env` for production:
 
-```env
+\`\`\`env
 NODE_ENV=production
 DB_HOST=your-production-host
 DB_USER=your-production-user
 DB_PASSWORD=your-production-password
 JWT_SECRET=your-very-secure-jwt-secret
-```
+\`\`\`
 
 ## 🐛 Troubleshooting
 
