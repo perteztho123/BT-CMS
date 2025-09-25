@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dialog"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Search, Plus, Edit, Trash2, Save, X, AlertTriangle } from "lucide-react"
+import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa"
 
 interface Announcement {
   id: number
@@ -39,6 +40,11 @@ export default function AnnouncementManagement() {
   const [deleteId, setDeleteId] = useState<number | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [searchTerm, setSearchTerm] = useState("")
+  const [statusFilter, setStatusFilter] = useState("all")
+  const [categoryFilter, setCategoryFilter] = useState("all")
+  const [sortField, setSortField] = useState<keyof Announcement>("created_at")
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc")
+  const [itemsPerPage, setItemsPerPage] = useState(10)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [editorContent, setEditorContent] = useState("")
@@ -49,16 +55,20 @@ export default function AnnouncementManagement() {
     status: "draft",
     image_url: "",
   })
-  const itemsPerPage = 5
   const supabase = createClient()
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    // Form submission logic here
+  }
 
   useEffect(() => {
     fetchAnnouncements()
   }, [])
 
   useEffect(() => {
-    handleSearch()
-  }, [searchTerm, announcements])
+    handleFilterAndSort()
+  }, [searchTerm, statusFilter, categoryFilter, sortField, sortDirection, announcements])
 
   const fetchAnnouncements = async () => {
     try {
@@ -73,42 +83,52 @@ export default function AnnouncementManagement() {
     }
   }
 
-  const handleSearch = () => {
-    const filtered = announcements.filter(
-      (announcement) =>
+  const handleFilterAndSort = () => {
+    const filtered = announcements.filter((announcement) => {
+      const matchesSearch =
         announcement.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         announcement.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        announcement.category.toLowerCase().includes(searchTerm.toLowerCase()),
-    )
+        announcement.category.toLowerCase().includes(searchTerm.toLowerCase())
+
+      const matchesStatus = statusFilter === "all" || announcement.status === statusFilter
+      const matchesCategory = categoryFilter === "all" || announcement.category === categoryFilter
+
+      return matchesSearch && matchesStatus && matchesCategory
+    })
+
+    filtered.sort((a, b) => {
+      const aValue = a[sortField]
+      const bValue = b[sortField]
+
+      if (sortDirection === "asc") {
+        return aValue < bValue ? -1 : aValue > bValue ? 1 : 0
+      } else {
+        return aValue > bValue ? -1 : aValue < bValue ? 1 : 0
+      }
+    })
+
     setCurrentAnnouncements(filtered)
     setCurrentPage(1)
   }
 
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    const announcementData = {
-      ...formData,
-      content: editorContent, // Use editor content instead of textarea
+  const handleSort = (field: keyof Announcement) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === "asc" ? "desc" : "asc")
+    } else {
+      setSortField(field)
+      setSortDirection("asc")
     }
+  }
 
-    try {
-      if (editingId) {
-        const { error } = await supabase.from("announcements").update(announcementData).eq("id", editingId)
-        if (error) throw error
-        alert("Announcement updated successfully!")
-      } else {
-        const { error } = await supabase.from("announcements").insert([announcementData])
-        if (error) throw error
-        alert("Announcement created successfully!")
-      }
-
-      resetForm()
-      fetchAnnouncements()
-    } catch (error) {
-      console.error("Error saving announcement:", error)
-      alert("Error saving announcement. Please try again.")
+  const SortIcon = ({ field }: { field: keyof Announcement }) => {
+    if (sortField !== field) {
+      return <FaSort className="ml-1" />
     }
+    return sortDirection === "asc" ? (
+      <FaSortUp className="text-primary ml-1" />
+    ) : (
+      <FaSortDown className="text-primary ml-1" />
+    )
   }
 
   const resetForm = () => {
@@ -162,6 +182,7 @@ export default function AnnouncementManagement() {
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
   const paginatedAnnouncements = currentAnnouncements.slice(startIndex, endIndex)
+  const totalPages = Math.ceil(currentAnnouncements.length / itemsPerPage)
 
   if (isLoading) {
     return (
@@ -326,15 +347,92 @@ export default function AnnouncementManagement() {
               </div>
             </CardHeader>
             <CardContent className="p-6">
+              <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                <Select value={statusFilter} onValueChange={setStatusFilter}>
+                  <SelectTrigger className="w-full sm:w-[180px]">
+                    <SelectValue placeholder="Filter by status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Status</SelectItem>
+                    <SelectItem value="draft">Draft</SelectItem>
+                    <SelectItem value="published">Published</SelectItem>
+                    <SelectItem value="archived">Archived</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+                  <SelectTrigger className="w-full sm:w-[180px]">
+                    <SelectValue placeholder="Filter by category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Categories</SelectItem>
+                    <SelectItem value="emergency">Emergency</SelectItem>
+                    <SelectItem value="event">Event</SelectItem>
+                    <SelectItem value="notice">Notice</SelectItem>
+                    <SelectItem value="update">Update</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select value={itemsPerPage.toString()} onValueChange={(value) => setItemsPerPage(Number(value))}>
+                  <SelectTrigger className="w-full sm:w-[120px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="5">5 per page</SelectItem>
+                    <SelectItem value="10">10 per page</SelectItem>
+                    <SelectItem value="25">25 per page</SelectItem>
+                    <SelectItem value="50">50 per page</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
               <div className="rounded-lg overflow-hidden">
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Title</TableHead>
-                      <TableHead>Category</TableHead>
-                      <TableHead>Priority</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Date</TableHead>
+                      <TableHead
+                        className="cursor-pointer hover:bg-muted/50 select-none"
+                        onClick={() => handleSort("title")}
+                      >
+                        <div className="flex items-center">
+                          Title
+                          <SortIcon field="title" />
+                        </div>
+                      </TableHead>
+                      <TableHead
+                        className="cursor-pointer hover:bg-muted/50 select-none"
+                        onClick={() => handleSort("category")}
+                      >
+                        <div className="flex items-center">
+                          Category
+                          <SortIcon field="category" />
+                        </div>
+                      </TableHead>
+                      <TableHead
+                        className="cursor-pointer hover:bg-muted/50 select-none"
+                        onClick={() => handleSort("priority")}
+                      >
+                        <div className="flex items-center">
+                          Priority
+                          <SortIcon field="priority" />
+                        </div>
+                      </TableHead>
+                      <TableHead
+                        className="cursor-pointer hover:bg-muted/50 select-none"
+                        onClick={() => handleSort("status")}
+                      >
+                        <div className="flex items-center">
+                          Status
+                          <SortIcon field="status" />
+                        </div>
+                      </TableHead>
+                      <TableHead
+                        className="cursor-pointer hover:bg-muted/50 select-none"
+                        onClick={() => handleSort("created_at")}
+                      >
+                        <div className="flex items-center">
+                          Date
+                          <SortIcon field="created_at" />
+                        </div>
+                      </TableHead>
                       <TableHead>Actions</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -345,6 +443,9 @@ export default function AnnouncementManagement() {
                           <div className="text-muted-foreground">
                             <Plus className="h-12 w-12 mx-auto mb-2 opacity-50" />
                             <p>No announcements found</p>
+                            {(searchTerm || statusFilter !== "all" || categoryFilter !== "all") && (
+                              <p className="text-sm mt-1">Try adjusting your search or filters</p>
+                            )}
                           </div>
                         </TableCell>
                       </TableRow>
@@ -418,12 +519,18 @@ export default function AnnouncementManagement() {
                 </Table>
               </div>
 
-              <div className="mt-4 flex items-center justify-between">
+              <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="text-sm text-muted-foreground">
-                  Showing {Math.min(endIndex, currentAnnouncements.length)} of {currentAnnouncements.length}{" "}
-                  announcements
+                  Showing {Math.min(startIndex + 1, currentAnnouncements.length)} to{" "}
+                  {Math.min(endIndex, currentAnnouncements.length)} of {currentAnnouncements.length} announcements
+                  {currentAnnouncements.length !== announcements.length && (
+                    <span className="ml-1">(filtered from {announcements.length} total)</span>
+                  )}
                 </div>
-                <div className="flex space-x-2">
+                <div className="flex items-center space-x-2">
+                  <Button variant="outline" size="sm" onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>
+                    First
+                  </Button>
                   <Button
                     variant="outline"
                     size="sm"
@@ -432,13 +539,24 @@ export default function AnnouncementManagement() {
                   >
                     Previous
                   </Button>
+                  <span className="text-sm text-muted-foreground px-2">
+                    Page {currentPage} of {totalPages}
+                  </span>
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => setCurrentPage(currentPage + 1)}
-                    disabled={endIndex >= currentAnnouncements.length}
+                    disabled={currentPage === totalPages}
                   >
                     Next
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setCurrentPage(totalPages)}
+                    disabled={currentPage === totalPages}
+                  >
+                    Last
                   </Button>
                 </div>
               </div>

@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dialog"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Search, Edit, Trash2, Save, X, AlertTriangle, Newspaper, Video, ImageIcon } from "lucide-react"
+import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa"
 
 interface NewsArticle {
   id: number
@@ -43,6 +44,12 @@ export default function NewsManagement() {
   const [deleteId, setDeleteId] = useState<number | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [searchTerm, setSearchTerm] = useState("")
+  const [statusFilter, setStatusFilter] = useState("all")
+  const [categoryFilter, setCategoryFilter] = useState("all")
+  const [mediaTypeFilter, setMediaTypeFilter] = useState("all")
+  const [sortField, setSortField] = useState<keyof NewsArticle>("created_at")
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc")
+  const [itemsPerPage, setItemsPerPage] = useState(10)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [editorContent, setEditorContent] = useState("")
@@ -55,7 +62,6 @@ export default function NewsManagement() {
     image_url: "",
     video_url: "",
   })
-  const itemsPerPage = 5
   const supabase = createClient()
 
   useEffect(() => {
@@ -63,8 +69,8 @@ export default function NewsManagement() {
   }, [])
 
   useEffect(() => {
-    handleSearch()
-  }, [searchTerm, newsArticles])
+    handleFilterAndSort()
+  }, [searchTerm, statusFilter, categoryFilter, mediaTypeFilter, sortField, sortDirection, newsArticles])
 
   const fetchNewsArticles = async () => {
     try {
@@ -79,16 +85,54 @@ export default function NewsManagement() {
     }
   }
 
-  const handleSearch = () => {
-    const filtered = newsArticles.filter(
-      (article) =>
+  const handleFilterAndSort = () => {
+    const filtered = newsArticles.filter((article) => {
+      const matchesSearch =
         article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         article.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
         article.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (article.excerpt && article.excerpt.toLowerCase().includes(searchTerm.toLowerCase())),
-    )
+        (article.excerpt && article.excerpt.toLowerCase().includes(searchTerm.toLowerCase()))
+
+      const matchesStatus = statusFilter === "all" || article.status === statusFilter
+      const matchesCategory = categoryFilter === "all" || article.category === categoryFilter
+      const matchesMediaType = mediaTypeFilter === "all" || article.media_type === mediaTypeFilter
+
+      return matchesSearch && matchesStatus && matchesCategory && matchesMediaType
+    })
+
+    filtered.sort((a, b) => {
+      const aValue = a[sortField]
+      const bValue = b[sortField]
+
+      if (sortDirection === "asc") {
+        return aValue < bValue ? -1 : aValue > bValue ? 1 : 0
+      } else {
+        return aValue > bValue ? -1 : aValue < bValue ? 1 : 0
+      }
+    })
+
     setCurrentArticles(filtered)
     setCurrentPage(1)
+  }
+
+  const handleSort = (field: keyof NewsArticle) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === "asc" ? "desc" : "asc")
+    } else {
+      setSortField(field)
+      setSortDirection("asc")
+    }
+  }
+
+  const SortIcon = ({ field }: { field: keyof NewsArticle }) => {
+    if (sortField !== field) {
+      return <FaSort className="ml-1" />
+    }
+    return sortDirection === "asc" ? (
+      <FaSortUp className="text-primary ml-1" />
+    ) : (
+      <FaSortDown className="text-primary ml-1" />
+    )
   }
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -173,6 +217,7 @@ export default function NewsManagement() {
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
   const paginatedArticles = currentArticles.slice(startIndex, endIndex)
+  const totalPages = Math.ceil(currentArticles.length / itemsPerPage)
 
   if (isLoading) {
     return (
@@ -365,15 +410,105 @@ export default function NewsManagement() {
               </div>
             </CardHeader>
             <CardContent className="p-6">
+              <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                <Select value={statusFilter} onValueChange={setStatusFilter}>
+                  <SelectTrigger className="w-full sm:w-[180px]">
+                    <SelectValue placeholder="Filter by status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Status</SelectItem>
+                    <SelectItem value="draft">Draft</SelectItem>
+                    <SelectItem value="published">Published</SelectItem>
+                    <SelectItem value="archived">Archived</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+                  <SelectTrigger className="w-full sm:w-[180px]">
+                    <SelectValue placeholder="Filter by category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Categories</SelectItem>
+                    <SelectItem value="breaking">Breaking News</SelectItem>
+                    <SelectItem value="community">Community</SelectItem>
+                    <SelectItem value="disaster">Disaster Response</SelectItem>
+                    <SelectItem value="preparedness">Preparedness</SelectItem>
+                    <SelectItem value="training">Training</SelectItem>
+                    <SelectItem value="general">General</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select value={mediaTypeFilter} onValueChange={setMediaTypeFilter}>
+                  <SelectTrigger className="w-full sm:w-[180px]">
+                    <SelectValue placeholder="Filter by media" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Media Types</SelectItem>
+                    <SelectItem value="text">Text Only</SelectItem>
+                    <SelectItem value="image">With Image</SelectItem>
+                    <SelectItem value="video">With Video</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select value={itemsPerPage.toString()} onValueChange={(value) => setItemsPerPage(Number(value))}>
+                  <SelectTrigger className="w-full sm:w-[120px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="5">5 per page</SelectItem>
+                    <SelectItem value="10">10 per page</SelectItem>
+                    <SelectItem value="25">25 per page</SelectItem>
+                    <SelectItem value="50">50 per page</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
               <div className="rounded-lg overflow-hidden">
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Title</TableHead>
-                      <TableHead>Category</TableHead>
-                      <TableHead>Media</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Date</TableHead>
+                      <TableHead
+                        className="cursor-pointer hover:bg-muted/50 select-none"
+                        onClick={() => handleSort("title")}
+                      >
+                        <div className="flex items-center">
+                          Title
+                          <SortIcon field="title" />
+                        </div>
+                      </TableHead>
+                      <TableHead
+                        className="cursor-pointer hover:bg-muted/50 select-none"
+                        onClick={() => handleSort("category")}
+                      >
+                        <div className="flex items-center">
+                          Category
+                          <SortIcon field="category" />
+                        </div>
+                      </TableHead>
+                      <TableHead
+                        className="cursor-pointer hover:bg-muted/50 select-none"
+                        onClick={() => handleSort("media_type")}
+                      >
+                        <div className="flex items-center">
+                          Media
+                          <SortIcon field="media_type" />
+                        </div>
+                      </TableHead>
+                      <TableHead
+                        className="cursor-pointer hover:bg-muted/50 select-none"
+                        onClick={() => handleSort("status")}
+                      >
+                        <div className="flex items-center">
+                          Status
+                          <SortIcon field="status" />
+                        </div>
+                      </TableHead>
+                      <TableHead
+                        className="cursor-pointer hover:bg-muted/50 select-none"
+                        onClick={() => handleSort("created_at")}
+                      >
+                        <div className="flex items-center">
+                          Date
+                          <SortIcon field="created_at" />
+                        </div>
+                      </TableHead>
                       <TableHead>Actions</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -384,6 +519,12 @@ export default function NewsManagement() {
                           <div className="text-muted-foreground">
                             <Newspaper className="h-12 w-12 mx-auto mb-2 opacity-50" />
                             <p>No news articles found</p>
+                            {(searchTerm ||
+                              statusFilter !== "all" ||
+                              categoryFilter !== "all" ||
+                              mediaTypeFilter !== "all") && (
+                              <p className="text-sm mt-1">Try adjusting your search or filters</p>
+                            )}
                           </div>
                         </TableCell>
                       </TableRow>
@@ -451,11 +592,18 @@ export default function NewsManagement() {
                 </Table>
               </div>
 
-              <div className="mt-4 flex items-center justify-between">
+              <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="text-sm text-muted-foreground">
-                  Showing {Math.min(endIndex, currentArticles.length)} of {currentArticles.length} articles
+                  Showing {Math.min(startIndex + 1, currentArticles.length)} to{" "}
+                  {Math.min(endIndex, currentArticles.length)} of {currentArticles.length} articles
+                  {currentArticles.length !== newsArticles.length && (
+                    <span className="ml-1">(filtered from {newsArticles.length} total)</span>
+                  )}
                 </div>
-                <div className="flex space-x-2">
+                <div className="flex items-center space-x-2">
+                  <Button variant="outline" size="sm" onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>
+                    First
+                  </Button>
                   <Button
                     variant="outline"
                     size="sm"
@@ -464,13 +612,24 @@ export default function NewsManagement() {
                   >
                     Previous
                   </Button>
+                  <span className="text-sm text-muted-foreground px-2">
+                    Page {currentPage} of {totalPages}
+                  </span>
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => setCurrentPage(currentPage + 1)}
-                    disabled={endIndex >= currentArticles.length}
+                    disabled={currentPage === totalPages}
                   >
                     Next
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setCurrentPage(totalPages)}
+                    disabled={currentPage === totalPages}
+                  >
+                    Last
                   </Button>
                 </div>
               </div>
