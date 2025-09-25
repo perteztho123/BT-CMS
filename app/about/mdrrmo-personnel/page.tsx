@@ -80,7 +80,7 @@ export default function MDRRMOPersonnelPage() {
               <div className="bg-gradient-to-br from-blue-950 to-blue-800 text-white rounded-xl p-6 text-center min-w-[300px] shadow-xl card-hover">
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-950 to-yellow-500 flex items-center justify-center mx-auto mb-4 overflow-hidden">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29-IxZCa3bzEkSglhlXizUcSrtVehMQze.webp"
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29-5qOl8gW1AcGZZtltacEEQRCqSGHbgF.webp"
                     alt="Mayor"
                     width={80}
                     height={80}
@@ -94,7 +94,7 @@ export default function MDRRMOPersonnelPage() {
               <div className="bg-gradient-to-br from-yellow-500 to-yellow-400 text-blue-950 rounded-xl p-6 text-center min-w-[300px] shadow-xl card-hover">
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-950 to-yellow-500 flex items-center justify-center mx-auto mb-4 overflow-hidden">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29-IxZCa3bzEkSglhlXizUcSrtVehMQze.webp"
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29-5qOl8gW1AcGZZtltacEEQRCqSGHbgF.webp"
                     alt="MDRRMO Head"
                     width={80}
                     height={80}
@@ -111,7 +111,7 @@ export default function MDRRMOPersonnelPage() {
               <div className="bg-white border-t-4 border-blue-950 rounded-xl p-6 text-center min-w-[220px] shadow-xl card-hover">
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-950 to-yellow-500 flex items-center justify-center mx-auto mb-4 overflow-hidden">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29-IxZCa3bzEkSglhlXizUcSrtVehMQze.webp"
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29-5qOl8gW1AcGZZtltacEEQRCqSGHbgF.webp"
                     alt="Core Staff"
                     width={80}
                     height={80}
@@ -124,7 +124,7 @@ export default function MDRRMOPersonnelPage() {
               <div className="bg-white border-t-4 border-blue-950 rounded-xl p-6 text-center min-w-[220px] shadow-xl card-hover">
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-950 to-yellow-500 flex items-center justify-center mx-auto mb-4 overflow-hidden">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29-IxZCa3bzEkSglhlXizUcSrtVehMQze.webp"
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29-5qOl8gW1AcGZZtltacEEQRCqSGHbgF.webp"
                     alt="Core Staff"
                     width={80}
                     height={80}
@@ -137,7 +137,7 @@ export default function MDRRMOPersonnelPage() {
               <div className="bg-white border-t-4 border-blue-950 rounded-xl p-6 text-center min-w-[220px] shadow-xl card-hover">
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-950 to-yellow-500 flex items-center justify-center mx-auto mb-4 overflow-hidden">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29-IxZCa3bzEkSglhlXizUcSrtVehMQze.webp"
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29-5qOl8gW1AcGZZtltacEEQRCqSGHbgF.webp"
                     alt="Core Staff"
                     width={80}
                     height={80}
@@ -173,7 +173,7 @@ export default function MDRRMOPersonnelPage() {
                 >
                   <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-950 to-yellow-500 flex items-center justify-center mx-auto mb-4 overflow-hidden">
                     <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29-IxZCa3bzEkSglhlXizUcSrtVehMQze.webp"
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/design-mode-images/logome_qttbxo%281%29%281%29%281%29%281%29-5qOl8gW1AcGZZtltacEEQRCqSGHbgF.webp"
                       alt="Team Member"
                       width={80}
                       height={80}
