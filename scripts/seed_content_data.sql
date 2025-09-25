@@ -1,26 +1,106 @@
+BEGIN;
+
+-- 1. Add temporary column to hold migrated priority values
+ALTER TABLE public.announcements
+ADD COLUMN priority_new TEXT;
+
+-- 2. Copy existing priority values into the new column
+UPDATE public.announcements
+SET priority_new = priority;
+
+-- 3. (Optional) Inspect distinct values before proceeding
+-- SELECT DISTINCT priority_new FROM public.announcements;
+
+-- 4. Drop the existing CHECK constraint
+ALTER TABLE public.announcements
+DROP CONSTRAINT announcements_priority_check;
+
+-- 5. Add new CHECK constraint allowing 'medium'
+ALTER TABLE public.announcements
+ADD CONSTRAINT announcements_priority_check_tmp
+CHECK (
+  priority_new = ANY (
+    ARRAY['low', 'normal', 'medium', 'high', 'urgent']
+  )
+);
+
+-- 6. Remove old priority column and promote the new one
+ALTER TABLE public.announcements
+DROP COLUMN priority;
+
+ALTER TABLE public.announcements
+RENAME COLUMN priority_new TO priority;
+
+-- 7. Rename the new constraint to match the original name
+ALTER TABLE public.announcements
+RENAME CONSTRAINT announcements_priority_check_tmp
+TO announcements_priority_check;
+
+COMMIT;
+
 -- Insert sample announcements
-INSERT INTO announcements (title, category, priority, content, status, created_by) VALUES
-('Emergency Weather Advisory - Tropical Storm Juanito', 'emergency', 'high', 'Residents are advised to take necessary precautions as Tropical Storm Juanito approaches our region. Please stay indoors and monitor official weather updates.', 'published', (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1)),
-('Annual Community Christmas Festival', 'event', 'medium', 'Join us for our annual Christmas Festival featuring local vendors, food stalls, and entertainment for the whole family.', 'published', (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1)),
-('New Waste Collection Schedule', 'notice', 'medium', 'Starting January 2025, our waste collection schedule will be adjusted to better serve all barangays. Please check the new schedule posted in your barangay halls.', 'published', (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1)),
-('Mayor''s Monthly Address', 'update', 'low', 'Watch the Mayor''s latest monthly address discussing recent developments and upcoming projects in our municipality.', 'draft', (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1));
+INSERT INTO public.announcements (
+  title,
+  content,
+  category,
+  priority,
+  published,
+  featured_image,
+  created_by,
+  status
+) VALUES
+-- Emergency Alert
+('Tropical Storm Juanito Advisory',
+ 'Residents are advised to take necessary precautions as Tropical Storm Juanito approaches our region. Stay indoors and monitor official weather updates.',
+ 'emergency', 'high', true, NULL,
+ (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1),
+ 'published'),
 
--- Insert sample news articles
-INSERT INTO news_articles (title, category, excerpt, content, media_type, status, created_by) VALUES
-('BDRRM Planning Training Workshop', 'training', 'On June 25, 2024, the Municipal Disaster Risk Reduction and Management Office conducted an essential training session.', 'On June 25, 2024, the Municipal Disaster Risk Reduction and Management Office (MDRRMO) conducted an essential training session on Barangay Disaster Risk Reduction and Management Planning at Barangay Basicao Interior. The event was designed to equip local leaders with the knowledge and tools necessary to develop effective disaster preparedness plans at the barangay level.', 'image', 'published', (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1)),
-('Successful Nationwide Simultaneous Earthquake Drill', 'event', 'The municipality participated in the 2nd quarter nationwide simultaneous earthquake drill with over 5,000 participants.', 'The municipality participated in the 2nd quarter nationwide simultaneous earthquake drill with over 5,000 participants from schools, offices, and communities. The drill was conducted to test the readiness and response capabilities of various sectors in the event of a major earthquake.', 'image', 'published', (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1)),
-('20 Volunteers Complete Water Rescue Training', 'training', 'On November 19, 2021, the rescue volunteers underwent intensive training in Basic Life Support and Water Search and Rescue.', 'On November 19, 2021, the rescue volunteers of Pio Duran underwent intensive training in Basic Life Support, survival skills, and Water Search and Rescue (WASAR). This program was designed to equip them with essential life-saving techniques, ensuring they could effectively respond to water-related emergencies and provide immediate assistance to those in distress.', 'video', 'published', (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1));
+-- Community Event
+('Annual Christmas Festival',
+ 'Join us for our annual Christmas Festival featuring local vendors, food stalls, and entertainment for the whole family.',
+ 'event', 'medium', true, NULL,
+ (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1),
+ 'published'),
 
--- Insert sample events
-INSERT INTO events_activities (title, category, description, event_date, event_time, location, organizer, max_participants, registration_required, status, created_by) VALUES
-('Earthquake Preparedness Seminar', 'training', 'Learn essential earthquake preparedness techniques and safety protocols for your family and community.', '2025-01-15', '09:00:00', 'Municipal Hall Conference Room', 'MDRRMO Pio Duran', 50, true, 'published', (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1)),
-('Community Fire Drill', 'drill', 'Quarterly fire drill exercise for all barangays to practice evacuation procedures and fire safety protocols.', '2025-01-20', '14:00:00', 'Barangay Plaza', 'MDRRMO & BFP', 200, false, 'published', (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1)),
-('First Aid Training Workshop', 'training', 'Basic first aid training for community volunteers and barangay officials.', '2025-01-25', '08:30:00', 'Health Center', 'MDRRMO & DOH', 30, true, 'published', (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1));
+-- General Notice
+('New Waste Collection Schedule',
+ 'Starting January 2025, our waste collection schedule will be adjusted to better serve all barangays. Please check the new schedule posted in your barangay halls.',
+ 'general', 'medium', true, NULL,
+ (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1),
+ 'published'),
 
--- Insert sample hotline numbers
-INSERT INTO hotline_numbers (service_name, primary_number, secondary_number, description, category, is_24_7, status, created_by) VALUES
-('MDRRMO Emergency', '911', '(052) 234-5678', 'Municipal Disaster Risk Reduction and Management Office emergency hotline', 'emergency', true, 'active', (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1)),
-('Police Station', '117', '(052) 456-7890', 'Pio Duran Police Station emergency line', 'police', true, 'active', (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1)),
-('Fire Department', '116', '(052) 789-0123', 'Bureau of Fire Protection Pio Duran', 'fire', true, 'active', (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1)),
-('Rural Health Unit', '(052) 321-4567', NULL, 'Municipal Health Office and Rural Health Unit', 'medical', false, 'active', (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1)),
-('Municipal Hall', '(052) 654-3210', NULL, 'Municipal Government Office main line', 'government', false, 'active', (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1));
+-- Municipal Update
+('Mayor''s Monthly Address',
+ 'Watch the Mayor''s latest monthly address discussing recent developments and upcoming projects in our municipality.',
+ 'general', 'low', false, NULL,
+ (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1),
+ 'draft'),
+
+-- Health Initiative
+('Barangay Health Fair This Weekend',
+ 'Free medical checkups, dental services, and wellness seminars will be available at the Barangay Health Fair this Saturday and Sunday.',
+ 'event', 'normal', true, NULL,
+ (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1),
+ 'published'),
+
+-- Preparedness Drill
+('Flood Preparedness Drill Scheduled',
+ 'A municipal-wide flood preparedness drill will be conducted next week. All barangay officials and volunteers are encouraged to participate.',
+ 'emergency', 'urgent', true, NULL,
+ (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1),
+ 'published'),
+
+-- Utility Notice
+('Power Interruption Notice',
+ 'Scheduled maintenance will cause power interruptions in several barangays on October 3 from 8 AM to 5 PM. Please plan accordingly.',
+ 'general', 'high', true, NULL,
+ (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1),
+ 'published'),
+
+-- Volunteer Call
+('Coastal Cleanup Drive',
+ 'Join our coastal cleanup drive this October 10 to help preserve our marine ecosystems. Volunteers will receive certificates and snacks.',
+ 'event', 'normal', true, NULL,
+ (SELECT id FROM auth.users WHERE email LIKE '%@mdrrmo.gov.ph' LIMIT 1),
+ 'published');
